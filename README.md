@@ -7,3 +7,4 @@ cd rshell
 cmake .
 make
 ```
+This will generate the `rshell` executable as well as a `test` executable that runs the unit tests.
