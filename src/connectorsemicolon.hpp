@@ -4,8 +4,6 @@
 #include <iostream>
 #include "base.hpp"
 
-using namespace std;
-
 class ConnectorSemicolon : public Base
 {
 private:

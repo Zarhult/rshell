@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include "base.hpp"
 
-using namespace std;
-
 class ConnectorOr : public Base
 {
 private:

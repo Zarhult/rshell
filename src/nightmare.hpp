@@ -7,15 +7,13 @@
 #include "connectorpipe.hpp"
 #include "exe.hpp"
 
-using namespace std;
+int findCloseParentheses(std::vector<std::string> &inputs, int start);
 
-int findCloseParentheses(vector<string> &inputs, int start);
-
-Base* nightmare(vector<string> &inputs) {
+Base* nightmare(std::vector<std::string> &inputs) {
     Base* connect = nullptr; //this is where the NIGHTMARE begins
 
     for (int i = 0; i < inputs.size(); ++i) {
-	if (connect == NULL) { //if there are no connectors yet, we must create two new exe's instead of one once we find the first connector
+	if (connect == nullptr) { //if there are no connectors yet, we must create two new exe's instead of one once we find the first connector
 	    //Needed members
 	    Base* exeLeft = nullptr;
 	    Base* exeRight = nullptr;
@@ -23,7 +21,7 @@ Base* nightmare(vector<string> &inputs) {
 
 	    //Check if the first statement is in parenthesis
 	    if (inputs.at(0) == "(") {
-		vector<string> parenInputs;
+		std::vector<std::string> parenInputs;
 		for (int j = 1; j < findCloseParentheses(inputs, 0); ++j) {
 		    parenInputs.push_back(inputs.at(j));
 		}
@@ -35,7 +33,7 @@ Base* nightmare(vector<string> &inputs) {
 	    if (i <= inputs.size() -1) {
 	    if (inputs.at(i) == ";" || inputs.at(i) == "&&" || inputs.at(i) == "||" || inputs.at(i) == "|") {   //for the first connector we find, create subvectors of the commands on its left and right so we can create an Exe from each command
 		if (exeLeft == nullptr) {
-		    vector<string> subInputLeft;
+		    std::vector<std::string> subInputLeft;
 		    for (int j = 0; j < i; ++j) {
 			subInputLeft.push_back(inputs.at(j));
 			//std:: cout << "PUSHING " << inputs.at(j) << " TO SUBINPUTLEFT" << std::endl;
@@ -44,14 +42,14 @@ Base* nightmare(vector<string> &inputs) {
 		}
 
 		int h = i + 1;
-		string space = " ";
+		std::string space = " ";
 		while (inputs.at(h) != ";" && inputs.at(h) != "||" && inputs.at(h) != "&&" && inputs.at(h) != space && inputs.at(h) != "|" && h < inputs.size() - 1) { //h should be at the next connector at the end of this for loop
 		    ++h;
 		}
 
 		//If right inputs also are parentheses
 		if (inputs.at(i+1) == "(") {
-		    vector<string> parenInputs;
+		    std::vector<std::string> parenInputs;
 		    for (int j = i + 2; j < findCloseParentheses(inputs, i+1); ++j) {
 			parenInputs.push_back(inputs.at(j));
 		    }
@@ -61,7 +59,7 @@ Base* nightmare(vector<string> &inputs) {
 		}
 
 		if (exeRight == nullptr) {
-		    vector<string> subInputRight; //Add strings from z, which is one next to i, which is the current connector, to h (the next connector)
+		    std::vector<std::string> subInputRight; //Add strings from z, which is one next to i, which is the current connector, to h (the next connector)
 		    for (int z = i + 1; z < h; ++z) {
 			subInputRight.push_back(inputs.at(z));
 			//std:: cout << "PUSHING " << inputs.at(z) << " TO SUBINPUTRIGHT" << std::endl;
@@ -111,7 +109,7 @@ Base* nightmare(vector<string> &inputs) {
 	    bool parenthesis = false;
 
 	    //All of this is basically the same as the if statement above except now there is connector that is not NULL
-	    string space = " ";
+	    std::string space = " ";
 	    int v = i + 1;
 
 	    while (inputs.at(v) != ";" && inputs.at(v) != "||" && inputs.at(v) != "&&" && inputs.at(v) != space && inputs.at(v) != "|" && v < inputs.size() - 1) {
@@ -120,7 +118,7 @@ Base* nightmare(vector<string> &inputs) {
 
 	    //If right inputs also are parenthesis
 	    if (inputs.at(i+1) == "(") {
-		vector<string> parenInputs;
+		std::vector<std::string> parenInputs;
 		for (int j = i + 2; j < findCloseParentheses(inputs, i+1); ++j) {
 		    parenInputs.push_back(inputs.at(j));
 		}
@@ -130,7 +128,7 @@ Base* nightmare(vector<string> &inputs) {
 	    }
 
 	    if (exeRight == nullptr) {
-		vector<string> subInputRight; //Add strings from z, which is one next to i, which is the current connector, to h (the next connector)
+		std::vector<std::string> subInputRight; //Add strings from z, which is one next to i, which is the current connector, to h (the next connector)
 		for (int z = i + 1; z < v; ++z) {
 		    subInputRight.push_back(inputs.at(z));
 		    //std::cout << "PUSHING " << inputs.at(z) << " TO SUBINPUTRIGHT" << std::endl;
@@ -174,7 +172,7 @@ Base* nightmare(vector<string> &inputs) {
     }
     // now return the tree
     if (connect == nullptr) { //checks to see if only one command was input with no connectors and handles it if so
-	vector<string> oneCommand;
+	std::vector<std::string> oneCommand;
 	for (int i = 0; i < inputs.size(); ++i) {
 	    oneCommand.push_back(inputs.at(i));
 	}
@@ -186,7 +184,7 @@ Base* nightmare(vector<string> &inputs) {
     }
 }
 
-int findCloseParentheses(vector<string> &inputs, int start) {
+int findCloseParentheses(std::vector<std::string> &inputs, int start) {
     int ignore = 0;
     for (int i = start + 1; i < inputs.size(); ++i) {
         if (inputs.at(i) == "(") {

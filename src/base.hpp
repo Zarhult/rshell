@@ -4,7 +4,7 @@
 class Base
 {
 public:
-    Base(){};
+    Base() {};
 
     virtual int execute() = 0;
 };

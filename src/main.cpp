@@ -7,7 +7,7 @@
 
 int main()
 {
-    string command;
+    std::string command;
     std::cout << "$ ";
     getline(std::cin, command);
     while (command != "exit")
@@ -20,8 +20,8 @@ int main()
 	    connector->execute();
 	}
         
-	cout << "$ ";
-        getline(cin, command);
+	std::cout << "$ ";
+        getline(std::cin, command);
     }
 
     return 0;

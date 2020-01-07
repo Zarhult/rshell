@@ -6,10 +6,8 @@
 #include "connectorsemicolon.hpp"
 #include "exe.hpp"
 
-using namespace std;
-
-vector<string> parse(string command) {
-        vector<string> inputs; // parse command into a vector of each command element (executables, connectors, quotes, parentheses, etc)
+std::vector<std::string> parse(std::string command) {
+	std::vector<std::string> inputs; // parse command into a vector of each command element (executables, connectors, quotes, parentheses, etc)
         int startIndex; // beginning of a command element, starting with the very beginning of the input string
         for (int i = 0; i < command.size(); ++i)
         {
@@ -63,7 +61,7 @@ vector<string> parse(string command) {
                 {
                     command.erase(i + 2, 1);
                 }
-                string input = command.substr(startIndex, i - startIndex + 1 + (i == command.size() - 1)); //(i == command.size() - 1) conditional accounts for case where we are at the command's end, and i is one less than it would be if it reached the character after the command element
+		std::string input = command.substr(startIndex, i - startIndex + 1 + (i == command.size() - 1)); //(i == command.size() - 1) conditional accounts for case where we are at the command's end, and i is one less than it would be if it reached the character after the command element
                 inputs.push_back(input);
 
                 startIndex = i;

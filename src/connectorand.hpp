@@ -3,8 +3,6 @@
 
 #include "base.hpp"
 
-using namespace std;
-
 class ConnectorAnd : public Base
 {
 private:

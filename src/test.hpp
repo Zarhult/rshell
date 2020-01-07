@@ -10,23 +10,21 @@
 #include <unistd.h>
 #include <iostream>
 
-using namespace std;
-
 class Test : public Base
 {
     private:
-	vector<string> cmd;
+	std::vector<std::string> cmd;
 
     public:
-	Test(vector<string> input) : Base(), cmd(input){};
+	Test(std::vector<std::string> input) : Base(), cmd(input){};
 
 	virtual int execute()
 	{
-		string flag;
-		string file;
+		std::string flag;
+		std::string file;
 		if (cmd.size() > 2)
 		{ //If there are more than just a flag and file name
-			cout << "Too many arguments" << endl;
+			std::cout << "Too many arguments" << std::endl;
 			return -1;
 		}
 		else if (cmd.size() == 1)

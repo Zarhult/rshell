@@ -12,28 +12,26 @@
 #include "../src/parser.hpp"
 #include "../src/nightmare.hpp"
 
-using namespace std;
-
 TEST(ExeTest, ExeFail)
 {
-    vector<string> cmd = {"meme"}; //nonexistent cmommand
+    std::vector<std::string> cmd = {"meme"}; //nonexistent cmommand
     Base* exe = new Exe(cmd);
     EXPECT_EQ(exe->execute(), -1);
 }
 
 TEST(ExeTest, ExePass)
 {
-    vector<string> cmd = {"ls"};
+    std::vector<std::string> cmd = {"ls"};
     Base* exe = new Exe(cmd);
     EXPECT_EQ(exe->execute(), 0);
 }
 
 TEST(ConnectTestAnd, Fail) {
-    vector<string> cmd;
+    std::vector<std::string> cmd;
     cmd.push_back("ls");
     cmd.push_back("nonsense");
 
-    vector<string> cmd2;
+    std::vector<std::string> cmd2;
     cmd2.push_back("ls");
 
     Base* exe = new Exe(cmd);
@@ -45,11 +43,11 @@ TEST(ConnectTestAnd, Fail) {
 }
 
 TEST(ConnectTestAnd, Pass) {
-    vector<string> cmd;
+    std::vector<std::string> cmd;
     cmd.push_back("echo");
     cmd.push_back("hello");
 
-    vector<string> cmd2;
+    std::vector<std::string> cmd2;
     cmd2.push_back("ls");
 
     Base* exe = new Exe(cmd);
@@ -61,7 +59,7 @@ TEST(ConnectTestAnd, Pass) {
 }
 
 TEST(ConnectTestOr, Fail) {
-    vector<string> cmd;
+    std::vector<std::string> cmd;
     cmd.push_back("ls");
     cmd.push_back("nonsense");
 
@@ -73,11 +71,11 @@ TEST(ConnectTestOr, Fail) {
 }
 
 TEST(ConnectTestOr, Pass) {
-    vector<string> cmd;
+    std::vector<std::string> cmd;
     cmd.push_back("ls");
     cmd.push_back("nonsense");
 
-    vector<string> cmd2;
+    std::vector<std::string> cmd2;
     cmd2.push_back("ls");
 
     Base* exe = new Exe(cmd);
@@ -89,7 +87,7 @@ TEST(ConnectTestOr, Pass) {
 }
 
 TEST(ConnectTestSemicolon, Fail) {
-    vector<string> cmd;
+    std::vector<std::string> cmd;
     cmd.push_back("ls");
     cmd.push_back("nonsense");
 
@@ -101,11 +99,11 @@ TEST(ConnectTestSemicolon, Fail) {
 }
 
 TEST(ConnectTestSemicolon, Pass) {
-    vector<string> cmd;
+    std::vector<std::string> cmd;
     cmd.push_back("ls");
     cmd.push_back("nonsense");
 
-    vector<string> cmd2;
+    std::vector<std::string> cmd2;
     cmd2.push_back("echo");
     cmd2.push_back("plzwork");
 
@@ -119,169 +117,169 @@ TEST(ConnectTestSemicolon, Pass) {
 }
 
 TEST(ParenthesesTest, LeftSide) {
-    string input = "(echo a && echo b) && echo c";
-    vector<string> cmd = parse(input);
+    std::string input = "(echo a && echo b) && echo c";
+    std::vector<std::string> cmd = parse(input);
 
     Base* exe = nightmare(cmd);
 
-    cout << "Expect: a b c" << endl;
+    std::cout << "Expect: a b c" << std::endl;
     EXPECT_EQ(exe->execute(), 0);
 
 }
 
 TEST(ParenthesesTest, RightSide) {
-    string input = "echo a && (echo b && echo c)";
-    vector<string> cmd = parse(input);
+    std::string input = "echo a && (echo b && echo c)";
+    std::vector<std::string> cmd = parse(input);
 
     Base* exe = nightmare(cmd);
 
-    cout << "Expect: a b c" << endl;
+    std::cout << "Expect: a b c" << std::endl;
     EXPECT_EQ(exe->execute(), 0);
 }
 
 TEST(ParenthesesTest, BothSides) {
-    string input = "(echo a && echo b) && (echo c && echo d)";
-    vector<string> cmd = parse(input);
+    std::string input = "(echo a && echo b) && (echo c && echo d)";
+    std::vector<std::string> cmd = parse(input);
 
     Base* exe = nightmare(cmd);
 
-    cout << "Expect: a b c d" << endl;
+    std::cout << "Expect: a b c d" << std::endl;
     EXPECT_EQ(exe->execute(), 0);
 }
 
 TEST(ParenthesesTest, Whole) {
-    string input = "(echo a && echo b && echo c && echo d)";
-    vector<string> cmd = parse(input);
+    std::string input = "(echo a && echo b && echo c && echo d)";
+    std::vector<std::string> cmd = parse(input);
 
     Base* exe = nightmare(cmd);
 
-    cout << "Expect: a b c d" << endl;
+    std::cout << "Expect: a b c d" << std::endl;
     EXPECT_EQ(exe->execute(), 0);
 }
 
 TEST(TestFlagE, ExistingFile) {
-    string input = "test -e src";
-    vector<string> cmd = parse(input);
+    std::string input = "test -e src";
+    std::vector<std::string> cmd = parse(input);
     Base* test = new Exe(cmd);
 
     EXPECT_EQ(test->execute(), 0);
 }
 
 TEST(TestFlagE, NonExistingFile) {
-   string input = "test -e meme";
-   vector<string> cmd = parse(input);
+   std::string input = "test -e meme";
+   std::vector<std::string> cmd = parse(input);
    Base* test = new Exe(cmd);
 
    EXPECT_NE(test->execute(), 0);
 }
 
 TEST(TestFlagD, IsDirectory) {
-   string input = "test -d src";
-   vector<string> cmd = parse(input);
+   std::string input = "test -d src";
+   std::vector<std::string> cmd = parse(input);
    Base* test = new Exe(cmd);
 
    EXPECT_EQ(test->execute(), 0);
 }
 
 TEST(TestFlagD, NotDirectory) {
-   string input = "test -d CMakeLists.txt";
-   vector<string> cmd = parse(input);
+   std::string input = "test -d CMakeLists.txt";
+   std::vector<std::string> cmd = parse(input);
    Base* test = new Exe(cmd);
 
    EXPECT_NE(test->execute(), 0);
 }
 
 TEST(TestFlagF, RegularFile) {
-    string input = "test -f rshell";
-    vector<string> cmd = parse(input);
+    std::string input = "test -f rshell";
+    std::vector<std::string> cmd = parse(input);
     Base* test = new Exe(cmd);
     
     EXPECT_EQ(test->execute(), 0);
 }
 
 TEST(TestFlagF, NonRegularFile) {
-    string input = "test -f src";
-    vector<string> cmd = parse(input);
+    std::string input = "test -f src";
+    std::vector<std::string> cmd = parse(input);
     Base* test = new Exe(cmd);
 
     EXPECT_NE(test->execute(), 0);
 }
 
 TEST(TestOutputRedirect, ls) {
-    string input = "ls > file; echo append >> file";
-    vector<string> cmd = parse(input);
+    std::string input = "ls > file; echo append >> file";
+    std::vector<std::string> cmd = parse(input);
     Base* test = nightmare(cmd);
 
     EXPECT_EQ(test->execute(), 0);
 }
 
 TEST(TestOutputRedirect, lsAll) {
-    string input = "ls -a > file2; echo append2 >> file2";
-    vector<string> cmd = parse(input);
+    std::string input = "ls -a > file2; echo append2 >> file2";
+    std::vector<std::string> cmd = parse(input);
     Base* test = nightmare(cmd);
 
     EXPECT_EQ(test->execute(), 0);
 }
 
 TEST(TestOutputRedirect, echo) {
-    string input = "echo testing > file3; echo appendls >> file3; ls >> file3";
-    vector<string> cmd = parse(input);
+    std::string input = "echo testing > file3; echo appendls >> file3; ls >> file3";
+    std::vector<std::string> cmd = parse(input);
     Base* test = nightmare(cmd);
 
     EXPECT_EQ(test->execute(), 0);
 }
 
 TEST(TestInputRedirect, ls) {
-    string input = "cat < file; rm file";
-    vector<string> cmd = parse(input);
+    std::string input = "cat < file; rm file";
+    std::vector<std::string> cmd = parse(input);
     Base* test = nightmare(cmd);
 
     EXPECT_EQ(test->execute(), 0);
 }
 
 TEST(TestInputRedirect, lsAll) {
-    string input = "cat < file2; rm file2";
-    vector<string> cmd = parse(input);
+    std::string input = "cat < file2; rm file2";
+    std::vector<std::string> cmd = parse(input);
     Base* test = nightmare(cmd);
 
     EXPECT_EQ(test->execute(), 0);
 }
 
 TEST(TestInputRedirect, echo) {
-    string input = "cat < file3; rm file3";
-    vector<string> cmd = parse(input);
+    std::string input = "cat < file3; rm file3";
+    std::vector<std::string> cmd = parse(input);
     Base* test = nightmare(cmd);
 
     EXPECT_EQ(test->execute(), 0);
 }
 
 TEST(TestPipe, grep) {
-    string input = "ls -la | grep s";
-    vector<string> cmd = parse(input);
+    std::string input = "ls -la | grep s";
+    std::vector<std::string> cmd = parse(input);
     Base* test = nightmare(cmd);
 
     EXPECT_EQ(test->execute(), 0);
 }
 
 TEST(TestPipe, tr) {
-    string input = "ls -la | tr A-Z a-z";
-    vector<string> cmd = parse(input);
+    std::string input = "ls -la | tr A-Z a-z";
+    std::vector<std::string> cmd = parse(input);
     Base* test = nightmare(cmd);
 
     EXPECT_EQ(test->execute(), 0);
 }
 
 TEST(TestPipe, mixedRedirectionPass) {
-    string input = "ls < . | tr A-Z a-z | tee out1 | tr a-z A-Z > out2; rm out1; rm out2";
-    vector<string> cmd = parse(input);
+    std::string input = "ls < . | tr A-Z a-z | tee out1 | tr a-z A-Z > out2; rm out1; rm out2";
+    std::vector<std::string> cmd = parse(input);
     Base* test = nightmare(cmd);
 
     EXPECT_EQ(test->execute(), 0);
 }
 
 TEST(TestPipe, mixedRedirectionFail) {
-    string input = "ls > . | tr A-Z a-z | tee out1 | tr a-z A-Z > out2; rm out1; rm out2";
-    vector<string> cmd = parse(input);
+    std::string input = "ls > . | tr A-Z a-z | tee out1 | tr a-z A-Z > out2; rm out1; rm out2";
+    std::vector<std::string> cmd = parse(input);
     Base* test = nightmare(cmd);
 
     EXPECT_EQ(test->execute(), -1);

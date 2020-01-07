@@ -14,8 +14,6 @@
 #include <fcntl.h>
 #include <cstring>
 
-using namespace std;
-
 class Exe : public Base
 {
 private:
@@ -44,9 +42,9 @@ public:
 	return;
     }
 
-    void InputRedirect(vector<string> &cmd) {
+    void InputRedirect(std::vector<std::string> &cmd) {
 	//Convert filename to c-string
-	string fileName = cmd.at(cmd.size() - 1); 
+	std::string fileName = cmd.at(cmd.size() - 1); 
 	char cstring[fileName.length()+1];
 	strcpy(cstring, fileName.c_str());
 
@@ -59,9 +57,9 @@ public:
 	return;
     }
 
-   void OutputRedirect(vector<string> &cmd) { //Same as input but with output instead
+   void OutputRedirect(std::vector<std::string> &cmd) { //Same as input but with output instead
 	//Convert filename to c-string
-	string fileName = cmd.at(cmd.size() - 1);
+        std::string fileName = cmd.at(cmd.size() - 1);
 	char cstring[fileName.length()+1];
 	strcpy(cstring, fileName.c_str());
 
@@ -123,7 +121,7 @@ public:
             //handle test exes
             if (cmd.at(0) == "test" || cmd.at(0) == "[")
             {
-                vector<string> testCmd;
+		std::vector<std::string> testCmd;
                 for (int i = 1; i < cmd.size(); ++i)
                 { //Remove the test word and the [ ] symbols from cmd
                     if (cmd.at(i) != "]")
@@ -137,11 +135,11 @@ public:
                 int t = test->execute(); //Returns 0 for true and -1 for false
                 if (t == 0)
                 {
-                    cout << "(True)" << endl;
+		    std::cout << "(True)" << std::endl;
                 }
                 else
                 {
-                    cout << "(False)" << endl;
+		    std::cout << "(False)" << std::endl;
                 }
                 return t; //Return the value so it works with connectors
             }
