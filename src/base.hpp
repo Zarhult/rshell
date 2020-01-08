@@ -5,7 +5,7 @@ class Base
 {
 public:
     Base() {};
-
+    virtual ~Base() = default;
     virtual int execute() = 0;
 };
 

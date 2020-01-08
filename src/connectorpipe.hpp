@@ -2,8 +2,8 @@
 #define __CONNECTORPIPE_HPP__
 
 #include <stdio.h>
-#include <sys/wait.h>
 #include <unistd.h>
+#include <sys/wait.h>
 #include <fcntl.h>
 #include "base.hpp"
 

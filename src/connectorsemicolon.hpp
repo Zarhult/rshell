@@ -7,11 +7,11 @@
 class ConnectorSemicolon : public Base
 {
 private:
-	Base *LeftExec;
-	Base *RightExec;
+	Base* LeftExec;
+	Base* RightExec;
 
 public:
-	ConnectorSemicolon(Base *left, Base *right) : LeftExec(left), RightExec(right){};
+	ConnectorSemicolon(Base* left, Base* right) : LeftExec(left), RightExec(right){};
 
 	virtual int execute()
 	{

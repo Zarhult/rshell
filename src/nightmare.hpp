@@ -32,74 +32,74 @@ Base* nightmare(std::vector<std::string> &inputs) {
 
 	    if (i <= inputs.size() -1) {
 	    if (inputs.at(i) == ";" || inputs.at(i) == "&&" || inputs.at(i) == "||" || inputs.at(i) == "|") {   //for the first connector we find, create subvectors of the commands on its left and right so we can create an Exe from each command
-		if (exeLeft == nullptr) {
-		    std::vector<std::string> subInputLeft;
-		    for (int j = 0; j < i; ++j) {
-			subInputLeft.push_back(inputs.at(j));
-			//std:: cout << "PUSHING " << inputs.at(j) << " TO SUBINPUTLEFT" << std::endl;
-		    }
-		    exeLeft = new Exe(subInputLeft);
-		}
+			if (exeLeft == nullptr) {
+				std::vector<std::string> subInputLeft;
+				for (int j = 0; j < i; ++j) {
+				subInputLeft.push_back(inputs.at(j));
+				//std:: cout << "PUSHING " << inputs.at(j) << " TO SUBINPUTLEFT" << std::endl;
+				}
+				exeLeft = new Exe(subInputLeft);
+			}
 
-		int h = i + 1;
-		std::string space = " ";
-		while (inputs.at(h) != ";" && inputs.at(h) != "||" && inputs.at(h) != "&&" && inputs.at(h) != space && inputs.at(h) != "|" && h < inputs.size() - 1) { //h should be at the next connector at the end of this for loop
-		    ++h;
-		}
+			int h = i + 1;
+			std::string space = " ";
+			while (inputs.at(h) != ";" && inputs.at(h) != "||" && inputs.at(h) != "&&" && inputs.at(h) != space && inputs.at(h) != "|" && h < inputs.size() - 1) { //h should be at the next connector at the end of this for loop
+				++h;
+			}
 
-		//If right inputs also are parentheses
-		if (inputs.at(i+1) == "(") {
-		    std::vector<std::string> parenInputs;
-		    for (int j = i + 2; j < findCloseParentheses(inputs, i+1); ++j) {
-			parenInputs.push_back(inputs.at(j));
-		    }
-		    //recursively generate trees for nested commands
-		    exeRight = nightmare(parenInputs);
-		    parenthesis = true;
-		}
+			//If right inputs also are parentheses
+			if (inputs.at(i+1) == "(") {
+				std::vector<std::string> parenInputs;
+				for (int j = i + 2; j < findCloseParentheses(inputs, i+1); ++j) {
+				parenInputs.push_back(inputs.at(j));
+				}
+				//recursively generate trees for nested commands
+				exeRight = nightmare(parenInputs);
+				parenthesis = true;
+			}
 
-		if (exeRight == nullptr) {
-		    std::vector<std::string> subInputRight; //Add strings from z, which is one next to i, which is the current connector, to h (the next connector)
-		    for (int z = i + 1; z < h; ++z) {
-			subInputRight.push_back(inputs.at(z));
-			//std:: cout << "PUSHING " << inputs.at(z) << " TO SUBINPUTRIGHT" << std::endl;
-		    }
+			if (exeRight == nullptr) {
+				std::vector<std::string> subInputRight; //Add strings from z, which is one next to i, which is the current connector, to h (the next connector)
+				for (int z = i + 1; z < h; ++z) {
+				subInputRight.push_back(inputs.at(z));
+				//std:: cout << "PUSHING " << inputs.at(z) << " TO SUBINPUTRIGHT" << std::endl;
+				}
 
-		    if (h == inputs.size() - 1) { //If h did not find another connector, it means that the rest of the inputs should be the cmdlist for the connector
-			subInputRight.push_back(inputs.at(inputs.size() - 1));
-			//std:: cout << "PUSHING " << inputs.at(inputs.size() - 1) << " TO SUBINPUTRIGHT" << std::endl;
-		    }
-		    exeRight = new Exe(subInputRight);
-		}
+				if (h == inputs.size() - 1) { //If h did not find another connector, it means that the rest of the inputs should be the cmdlist for the connector
+				subInputRight.push_back(inputs.at(inputs.size() - 1));
+				//std:: cout << "PUSHING " << inputs.at(inputs.size() - 1) << " TO SUBINPUTRIGHT" << std::endl;
+				}
+				exeRight = new Exe(subInputRight);
+			}
 
-		if (inputs.at(i) == ";") {
-		    connect = new ConnectorSemicolon(exeLeft, exeRight);
-		}
-		else if (inputs.at(i) == "&&") {
-		    connect = new ConnectorAnd(exeLeft, exeRight);
-		}
-		else if (inputs.at(i) == "||") {
-		    connect = new ConnectorOr(exeLeft, exeRight);
-		}
-		else if (inputs.at(i) == "|") {
-		    //std::cout << "CREATING PIPE CONNECTOR" << std::endl;
-		    connect = new ConnectorPipe(exeLeft, exeRight);
-		}
+			if (inputs.at(i) == ";") {
+				connect = new ConnectorSemicolon(exeLeft, exeRight);
+			}
+			else if (inputs.at(i) == "&&") {
+				connect = new ConnectorAnd(exeLeft, exeRight);
+			}
+			else if (inputs.at(i) == "||") {
+				connect = new ConnectorOr(exeLeft, exeRight);
+			}
+			else if (inputs.at(i) == "|") {
+				//std::cout << "CREATING PIPE CONNECTOR" << std::endl;
+				connect = new ConnectorPipe(exeLeft, exeRight);
+			}
 
-		if (parenthesis) {
-		    if (findCloseParentheses(inputs, i+1) == inputs.size() - 1) {
-			i = inputs.size();
-		    } else {
-			i = findCloseParentheses(inputs, i+1);
-		    }
-		} else {
-		    if (h == inputs.size() - 1) { //If h is the last input then stop the for loop
-			i = inputs.size();
-		    }
-		    else {
-			i = h - 1; //If h is at the connector, subtract one because at the end of the for loop i will get added one (++i), leaving it at the next connector spot during the next loop
-		    }
-		}
+			if (parenthesis) {
+				if (findCloseParentheses(inputs, i+1) == inputs.size() - 1) {
+				i = inputs.size();
+				} else {
+				i = findCloseParentheses(inputs, i+1);
+				}
+			} else {
+				if (h == inputs.size() - 1) { //If h is the last input then stop the for loop
+				i = inputs.size();
+				}
+				else {
+				i = h - 1; //If h is at the connector, subtract one because at the end of the for loop i will get added one (++i), leaving it at the next connector spot during the next loop
+				}
+			}
 	    }
 	    } else {
 		connect = exeLeft;
