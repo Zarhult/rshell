@@ -9,8 +9,7 @@ int main()
 {
     std::string command;
     std::cout << "$ ";
-    getline(std::cin, command);
-    while (command != "exit")
+    while (getline(std::cin, command))
     {
 	std::vector<std::string> inputs = parse(command);
 
@@ -25,7 +24,6 @@ int main()
 	}
         
 	std::cout << "$ ";
-        getline(std::cin, command);
     }
 
     return 0;
