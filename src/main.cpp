@@ -19,6 +19,10 @@ int main()
 	    Base* connector = nightmare(inputs);
 	    connector->execute();
 	}
+	else
+	{
+	    std::cout << "ERROR: Missing open or closing parentheses." << std::endl;
+	}
         
 	std::cout << "$ ";
         getline(std::cin, command);

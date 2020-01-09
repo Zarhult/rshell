@@ -4,21 +4,25 @@
 
 bool validParens(std::vector<std::string> &inputs)
 {
-    int numOfP = 0;
+    int numOfOpenP = 0;
+    int numOfCloseP = 0;
     for (int i = 0; i < inputs.size(); ++i) 
     {
-        if(inputs.at(i) == "(" || inputs.at(i) == ")") 
+        if(inputs.at(i) == "(")
 	{
-		++numOfP;
+	    ++numOfOpenP;
+	}
+	else if (inputs.at(i) == ")")
+	{
+	    ++numOfCloseP;
 	}
     }
-    if ((numOfP % 2) != 0) 
+    if (numOfOpenP == numOfCloseP) 
     {
-	std::cout << "Error: uneven number of parentheses" << std::endl;
-	return false;
+	return true;
     }
     else
     {
-	return true;
+	return false;
     }
 }
