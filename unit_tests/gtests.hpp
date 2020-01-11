@@ -122,7 +122,6 @@ TEST(ParenthesesTest, LeftSide) {
 
     Base* exe = nightmare(cmd);
 
-    std::cout << "Expect: a b c" << std::endl;
     EXPECT_EQ(exe->execute(), 0);
 
 }
@@ -133,7 +132,6 @@ TEST(ParenthesesTest, RightSide) {
 
     Base* exe = nightmare(cmd);
 
-    std::cout << "Expect: a b c" << std::endl;
     EXPECT_EQ(exe->execute(), 0);
 }
 
@@ -143,7 +141,6 @@ TEST(ParenthesesTest, BothSides) {
 
     Base* exe = nightmare(cmd);
 
-    std::cout << "Expect: a b c d" << std::endl;
     EXPECT_EQ(exe->execute(), 0);
 }
 
@@ -153,7 +150,6 @@ TEST(ParenthesesTest, Whole) {
 
     Base* exe = nightmare(cmd);
 
-    std::cout << "Expect: a b c d" << std::endl;
     EXPECT_EQ(exe->execute(), 0);
 }
 
