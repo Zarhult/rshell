@@ -7,10 +7,12 @@
 #include "../src/base.hpp"
 #include "../src/connectorand.hpp"
 #include "../src/connectoror.hpp"
+#include "../src/connectorpipe.hpp"
 #include "../src/connectorsemicolon.hpp"
 #include "../src/exe.hpp"
-#include "../src/parser.hpp"
 #include "../src/nightmare.hpp"
+#include "../src/parser.hpp"
+#include "../src/test.hpp"
 
 TEST(ExeTest, ExeFail)
 {
@@ -281,4 +283,4 @@ TEST(TestPipe, mixedRedirectionFail) {
     EXPECT_EQ(test->execute(), -1);
 }
 
-#endif
+#endif // __GTESTS_HPP__

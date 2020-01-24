@@ -42,7 +42,10 @@ Makefile
 
 # Other
 .vscode/
+.clangd
 .ccls
 .ccls-cache/
 Debug/
 compile_commands.json
+.color_coded
+tags

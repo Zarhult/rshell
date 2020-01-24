@@ -9,4 +9,4 @@ public:
     virtual int execute() = 0;
 };
 
-#endif
+#endif // __BASE_HPP__

@@ -1,9 +1,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "base.hpp"
 #include "parser.hpp"
 #include "nightmare.hpp"
-#include "validparens.hpp"
+
+bool validParens(std::vector<std::string> &inputs);
 
 int main()
 {
@@ -28,3 +30,29 @@ int main()
 
     return 0;
 }
+
+bool validParens(std::vector<std::string> &inputs)
+{
+    int numOfOpenP = 0;
+    int numOfCloseP = 0;
+    for (int i = 0; static_cast<unsigned long>(i) < inputs.size(); ++i) 
+    {
+        if(inputs.at(i) == "(")
+	{
+	    ++numOfOpenP;
+	}
+	else if (inputs.at(i) == ")")
+	{
+	    ++numOfCloseP;
+	}
+    }
+    if (numOfOpenP == numOfCloseP) 
+    {
+	return true;
+    }
+    else
+    {
+	return false;
+    }
+}
+

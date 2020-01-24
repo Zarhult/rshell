@@ -1,7 +1,6 @@
 #ifndef __CONNECTOROR_HPP__
 #define __CONNECTOROR_HPP__
 
-#include <stdlib.h>
 #include "base.hpp"
 
 class ConnectorOr : public Base
@@ -11,34 +10,9 @@ private:
     Base *RightExec;
 
 public:
-    ConnectorOr(Base *left, Base *right) : LeftExec(left), RightExec(right){};
-    virtual int execute()
-    {
-        bool part1 = false;
-        bool part2 = false;
-        int test1 = LeftExec->execute();
-        if (test1 == 0)
-        {
-            part1 = true;
-        }
-        else
-        {
-            int test2 = RightExec->execute();
-            if (test2 == 0)
-            {
-                part2 = true;
-            }
-        }
+    ConnectorOr(Base *left, Base *right);
 
-        if (part1 || part2)
-        {
-            return 0;
-        }
-        else
-        {
-            return -1;
-        }
-    }
+    virtual int execute();
 };
 
-#endif
+#endif // __CONNECTOROR_HPP__
