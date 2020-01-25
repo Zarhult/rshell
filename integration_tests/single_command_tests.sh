@@ -2,7 +2,7 @@
 
 script_dir=$(dirname $0)
 
-INPUTS=('ls' 'mkdir test' 'rm -r test' 'echo "test"' 'pwd')
+INPUTS=('ls' 'mkdir testdir' 'rm -r testdir' 'echo "test"' 'pwd')
 
 for input in "${INPUTS[@]}"
 do

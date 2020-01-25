@@ -2,7 +2,7 @@
 
 script_dir=$(dirname $0)
 
-INPUTS=('mkdir test; ls; rm -r test; ls; exit' 'ls "-la"; echo "this should print" || echo "this should not print"; exit' 'echo "this should print 1" && echo "this should print 2" || echo "this should not print"; exit')
+INPUTS=('mkdir testdir; ls; rm -r testdir; ls; exit' 'ls "-la"; echo "this should print" || echo "this should not print"; exit' 'echo "this should print 1" && echo "this should print 2" || echo "this should not print"; exit')
 
 for input in "${INPUTS[@]}"
 do
