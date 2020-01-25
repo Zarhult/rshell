@@ -52,8 +52,8 @@ std::vector<std::string> parse(std::string command) {
 
             //handle everything else (ls, mkdir, &&/|| connectors, test, etc)
             if(command.at(i) != '"' && command.at(i) != '(' && command.at(i) != ')' && command.at(i) != ';' && command.at(i) != ' ')
-            {
-                while(static_cast<unsigned long>(i) < command.size() - 1 && command.at(i + 1) != '"' && command.at(i + 1) != '(' && command.at(i + 1) != ')' && command.at(i + 1) != ';' && command.at(i + 1) != ' ') //set i to index of end of command, which precedes either a space, semicolon, or paren (or stop at the end of the command if reached)
+            {	//set i to index of end of command, which precedes either a space, semicolon, or paren (or stop at the end of the command if reached)
+                while(static_cast<unsigned long>(i) < command.size() - 1 && command.at(i + 1) != '"' && command.at(i + 1) != '(' && command.at(i + 1) != ')' && command.at(i + 1) != ';' && command.at(i + 1) != ' ') 
                 {
                     ++i;
                 }
@@ -61,7 +61,9 @@ std::vector<std::string> parse(std::string command) {
                 {
                     command.erase(i + 2, 1);
                 }
-		std::string input = command.substr(startIndex, i - startIndex + 1 + (static_cast<unsigned long>(i) == command.size() - 1)); //(i == command.size() - 1) conditional accounts for case where we are at the command's end, and i is one less than it would be if it reached the character after the command element
+		//(i == command.size() - 1) conditional accounts for case where we are at the command's end, and i is one less than it would 
+		//be if it reached the character after the command element
+		std::string input = command.substr(startIndex, i - startIndex + 1 + (static_cast<unsigned long>(i) == command.size() - 1)); 
                 inputs.push_back(input);
 
                 startIndex = i;

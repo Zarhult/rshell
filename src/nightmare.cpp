@@ -81,10 +81,10 @@ Base* nightmare(std::vector<std::string> &inputs)
 			++h;
 		    }
 
-		    if (inputs.at(i+1) == "(") 
+		    if (inputs.at(i + 1) == "(") 
 		    {
 			std::vector<std::string> parenInputs;
-			for (int j = i + 2; j < findCloseParentheses(inputs, i+1); ++j) 
+			for (int j = i + 2; j < findCloseParentheses(inputs, i + 1); ++j) 
 			{
 			    parenInputs.push_back(inputs.at(j));
 			}
@@ -128,13 +128,13 @@ Base* nightmare(std::vector<std::string> &inputs)
 
 		    if (parenthesis) 
 		    {
-			if (static_cast<unsigned long>(findCloseParentheses(inputs, i+1)) == inputs.size() - 1) 
+			if (static_cast<unsigned long>(findCloseParentheses(inputs, i + 1)) == inputs.size() - 1) 
 			{
 			    i = inputs.size();
 			} 
 			else 
 			{
-			    i = findCloseParentheses(inputs, i+1);
+			    i = findCloseParentheses(inputs, i + 1);
 			}
 		    } 
 		    else 
@@ -171,10 +171,10 @@ Base* nightmare(std::vector<std::string> &inputs)
 		++v;
 	    }
 
-	    if (inputs.at(i+1) == "(") 
+	    if (inputs.at(i + 1) == "(") 
 	    {
 		std::vector<std::string> parenInputs;
-		for (int j = i + 2; j < findCloseParentheses(inputs, i+1); ++j) 
+		for (int j = i + 2; j < findCloseParentheses(inputs, i + 1); ++j) 
 		{
 		    parenInputs.push_back(inputs.at(j));
 		}
@@ -219,13 +219,13 @@ Base* nightmare(std::vector<std::string> &inputs)
 
 	    if (parenthesis) 
 	    {
-		if (static_cast<unsigned long>(findCloseParentheses(inputs, i+1)) == inputs.size() - 1) 
+		if (static_cast<unsigned long>(findCloseParentheses(inputs, i + 1)) == inputs.size() - 1) 
 		{
 		    i = inputs.size();
 		} 
 		else 
 		{
-		    i = findCloseParentheses(inputs, i+1);
+		    i = findCloseParentheses(inputs, i + 1);
 		}
 	    } 
 	    else 
