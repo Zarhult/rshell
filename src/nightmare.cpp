@@ -30,12 +30,11 @@ Base* nightmare(std::vector<std::string> &inputs) {
 
     for (int i = 0; static_cast<unsigned long>(i) < inputs.size(); ++i) {
 	if (connect == nullptr) { //if there are no connectors yet, we must create two new exe's instead of one once we find the first connector
-	    //Needed members
 	    Base* exeLeft = nullptr;
 	    Base* exeRight = nullptr;
 	    bool parenthesis = false;
 
-	    //Check if the first statement is in parenthesis
+	    //check if the first statement is in parenthesis
 	    if (inputs.at(0) == "(") {
 		std::vector<std::string> parenInputs;
 		for (int j = 1; j < findCloseParentheses(inputs, 0); ++j) {
@@ -52,7 +51,6 @@ Base* nightmare(std::vector<std::string> &inputs) {
 				std::vector<std::string> subInputLeft;
 				for (int j = 0; j < i; ++j) {
 				subInputLeft.push_back(inputs.at(j));
-				//std:: cout << "PUSHING " << inputs.at(j) << " TO SUBINPUTLEFT" << std::endl;
 				}
 				exeLeft = new Exe(subInputLeft);
 			}
@@ -63,7 +61,6 @@ Base* nightmare(std::vector<std::string> &inputs) {
 				++h;
 			}
 
-			//If right inputs also are parentheses
 			if (inputs.at(i+1) == "(") {
 				std::vector<std::string> parenInputs;
 				for (int j = i + 2; j < findCloseParentheses(inputs, i+1); ++j) {
@@ -75,15 +72,13 @@ Base* nightmare(std::vector<std::string> &inputs) {
 			}
 
 			if (exeRight == nullptr) {
-				std::vector<std::string> subInputRight; //Add strings from z, which is one next to i, which is the current connector, to h (the next connector)
+				std::vector<std::string> subInputRight; //add strings from z, which is one next to i, which is the current connector, to h (the next connector)
 				for (int z = i + 1; z < h; ++z) {
 				subInputRight.push_back(inputs.at(z));
-				//std:: cout << "PUSHING " << inputs.at(z) << " TO SUBINPUTRIGHT" << std::endl;
 				}
 
-				if (static_cast<unsigned long>(h) == inputs.size() - 1) { //If h did not find another connector, it means that the rest of the inputs should be the cmdlist for the connector
+				if (static_cast<unsigned long>(h) == inputs.size() - 1) { //if h did not find another connector, it means that the rest of the inputs should be the cmdlist for the connector
 				subInputRight.push_back(inputs.at(inputs.size() - 1));
-				//std:: cout << "PUSHING " << inputs.at(inputs.size() - 1) << " TO SUBINPUTRIGHT" << std::endl;
 				}
 				exeRight = new Exe(subInputRight);
 			}
@@ -109,11 +104,11 @@ Base* nightmare(std::vector<std::string> &inputs) {
 				i = findCloseParentheses(inputs, i+1);
 				}
 			} else {
-				if (static_cast<unsigned long>(h) == inputs.size() - 1) { //If h is the last input then stop the for loop
+				if (static_cast<unsigned long>(h) == inputs.size() - 1) { //if h is the last input then stop the for loop
 				i = inputs.size();
 				}
 				else {
-				i = h - 1; //If h is at the connector, subtract one because at the end of the for loop i will get added one (++i), leaving it at the next connector spot during the next loop
+				i = h - 1; //if h is at the connector, subtract one because at the end of the for loop i will get added one (++i), leaving it at the next connector spot during the next loop
 				}
 			}
 	    }
@@ -124,7 +119,7 @@ Base* nightmare(std::vector<std::string> &inputs) {
 	    Base* exeRight = nullptr;
 	    bool parenthesis = false;
 
-	    //All of this is basically the same as the if statement above except now there is connector that is not NULL
+	    //all of this is basically the same as the if statement above except now there is connector that is not null
 	    std::string space = " ";
 	    int v = i + 1;
 
@@ -132,7 +127,6 @@ Base* nightmare(std::vector<std::string> &inputs) {
 		++v;
 	    }
 
-	    //If right inputs also are parenthesis
 	    if (inputs.at(i+1) == "(") {
 		std::vector<std::string> parenInputs;
 		for (int j = i + 2; j < findCloseParentheses(inputs, i+1); ++j) {
@@ -144,15 +138,13 @@ Base* nightmare(std::vector<std::string> &inputs) {
 	    }
 
 	    if (exeRight == nullptr) {
-		std::vector<std::string> subInputRight; //Add strings from z, which is one next to i, which is the current connector, to h (the next connector)
+		std::vector<std::string> subInputRight; //add strings from z, which is one next to i, which is the current connector, to h (the next connector)
 		for (int z = i + 1; z < v; ++z) {
 		    subInputRight.push_back(inputs.at(z));
-		    //std::cout << "PUSHING " << inputs.at(z) << " TO SUBINPUTRIGHT" << std::endl;
 		}
 
-		if (static_cast<unsigned long>(v) == inputs.size() - 1) { //If h did not find another connector, it means that the rest of the inputs should be the cmdlist for the connector
+		if (static_cast<unsigned long>(v) == inputs.size() - 1) { //if h did not find another connector, it means that the rest of the inputs should be the cmdlist for the connector
 		    subInputRight.push_back(inputs.at(inputs.size() - 1));
-		    //std::cout << "PUSHING " << inputs.at(inputs.size() - 1) << " TO SUBINPUTRIGHT" << std::endl;
 		}
 		exeRight = new Exe(subInputRight);
 	    }
@@ -177,11 +169,11 @@ Base* nightmare(std::vector<std::string> &inputs) {
 		    i = findCloseParentheses(inputs, i+1);
 		}
 	    } else {
-		if (static_cast<unsigned long>(v) == inputs.size() - 1) { //If h is the last input then stop the for loop
+		if (static_cast<unsigned long>(v) == inputs.size() - 1) { //if h is the last input then stop the for loop
 		    i = inputs.size();
 		}
 		else {
-		    i = v - 1; //If h is at the connector, subtract one because at the end of the for loop i will get added one (++i), leaving it at the next connector spot during the next loop
+		    i = v - 1; //if h is at the connector, subtract one because at the end of the for loop i will get added one (++i), leaving it at the next connector spot during the next loop
 		}
 	    }
 	}
