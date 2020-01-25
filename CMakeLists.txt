@@ -40,6 +40,5 @@ else()
     target_compile_options(rshell PRIVATE -Wall -Wextra -pedantic)
 endif()
 
-
 target_link_libraries(test gtest)
 target_compile_definitions(test PRIVATE gtest)
