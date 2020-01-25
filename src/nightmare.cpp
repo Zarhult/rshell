@@ -93,7 +93,6 @@ Base* nightmare(std::vector<std::string> &inputs) {
 				connect = new ConnectorOr(exeLeft, exeRight);
 			}
 			else if (inputs.at(i) == "|") {
-				//std::cout << "CREATING PIPE CONNECTOR" << std::endl;
 				connect = new ConnectorPipe(exeLeft, exeRight);
 			}
 
