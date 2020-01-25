@@ -12,13 +12,13 @@
 #include "test.hpp"
 #include "exe.hpp"
     
-Exe::Exe(std::vector<std::string> cmd) : Base(), cmd(cmd) {};
+Exe::Exe(std::vector<std::string> cmd) : Base(), cmd(cmd) {}
 
 void Exe::AppendRedirect(std::vector<std::string> &cmd) 
 {
     //Convert filename to c-string
     std::string fileName = cmd.at(cmd.size() - 1);
-    char cstring[fileName.length() + 1];
+    char cstring[50];
     strcpy(cstring, fileName.c_str());
 
     int newOut = open(cstring, O_WRONLY|O_APPEND|O_CREAT, 0777);
@@ -34,7 +34,7 @@ void Exe::InputRedirect(std::vector<std::string> &cmd)
 {
     //Convert filename to c-string
     std::string fileName = cmd.at(cmd.size() - 1); 
-    char cstring[fileName.length()+1];
+    char cstring[50];
     strcpy(cstring, fileName.c_str());
 
     newIn = open(cstring, O_RDONLY);
@@ -50,7 +50,7 @@ void Exe::OutputRedirect(std::vector<std::string> &cmd) //Same as input but with
 {   
     //Convert filename to c-string
     std::string fileName = cmd.at(cmd.size() - 1);
-    char cstring[fileName.length() + 1];
+    char cstring[50];
     strcpy(cstring, fileName.c_str());
 
     int newOut = open(cstring, O_WRONLY|O_CREAT, 0777); //Change to O_CREAT | O_WRONLY when piping is done
@@ -86,16 +86,22 @@ int Exe::execute()
     }
     cout << endl;*/
 
-    for (int i = 0; static_cast<unsigned long>(i) < cmd.size(); ++i) {
-	if(cmd.at(i) == "<") {
+    for (int i = 0; static_cast<unsigned long>(i) < cmd.size(); ++i) 
+    {
+	if(cmd.at(i) == "<") 
+	{
 	    cmd.erase(cmd.begin() + i);
 	    InputRedirect(cmd);
 	    break;
-	} else if(cmd.at(i) == ">") {
+	} 
+	else if(cmd.at(i) == ">") 
+	{
 	    cmd.erase(cmd.begin() + i);
 	    OutputRedirect(cmd);
 	    break;
-	} else if(cmd.at(i) == ">>") {
+	} 
+	else if(cmd.at(i) == ">>") 
+	{
 	    cmd.erase(cmd.begin() + i);
 	    AppendRedirect(cmd);
 	    break;
@@ -137,7 +143,7 @@ int Exe::execute()
 	}
 
 	//handle other exes
-	const char *args[cmd.size() + 1]; //convert vector of string commands to c strings for the execvp function
+	const char *args[50]; //convert vector of string commands to c strings for the execvp function
 	for (int i = 0; static_cast<unsigned long>(i) < cmd.size(); ++i)
 	{
 	    args[i] = cmd.at(i).c_str();
@@ -156,9 +162,12 @@ int Exe::execute()
 	{ //in parent process, wait for forked process to end, and return -1 if forked process returns -1
 	    int status;
 	    pid_t waitReturn = waitpid(pid, &status, 0);
-	    if (inputRedirection) {
+	    if (inputRedirection) 
+	    {
 		fixInputRedirection();
-	    } else if (outputRedirection) {
+	    } 
+	    else if (outputRedirection) 
+	    {
 		fixOutputRedirection();
 	    }
 
