@@ -62,7 +62,7 @@ void Exe::OutputRedirect(std::vector<std::string> &cmd) //same as input but with
     return;
 }
 
-void Exe::fixInputRedirection () 
+void Exe::fixInputRedirection() 
 {
     close(newIn);
     dup2(savedup, 0); //return to normal input
@@ -113,7 +113,7 @@ int Exe::execute()
 	{
 	    std::vector<std::string> testCmd;
 	    for (int i = 1; static_cast<unsigned long>(i) < cmd.size(); ++i)
-	    { //remove the test word and the [ ] symbols from cmd
+	    {	//remove the test word and the [ ] symbols from cmd
 		if (cmd.at(i) != "]")
 		{
 		    testCmd.push_back(cmd.at(i));
@@ -151,7 +151,7 @@ int Exe::execute()
 	}
 
 	if (pid > 0)
-	{ //in parent process, wait for forked process to end, and return -1 if forked process returns -1
+	{   //in parent process, wait for forked process to end, and return -1 if forked process returns -1
 	    int status;
 	    pid_t waitReturn = waitpid(pid, &status, 0);
 	    if (inputRedirection) 
@@ -175,7 +175,7 @@ int Exe::execute()
 	    }
 	}
 	else if (pid == 0)
-	{ //in child process, run the executable
+	{   //in child process, run the executable
 	    int exeReturn = execvp(args[0], (char *const *)args);
 	    if (exeReturn == -1)
 	    {

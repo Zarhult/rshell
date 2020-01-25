@@ -15,12 +15,12 @@ int Test::execute()
 	std::string flag;
 	std::string file;
 	if (cmd.size() > 2)
-	{ //if there are more than just a flag and file name
+	{	//if there are more than just a flag and file name
 		std::cout << "Too many arguments" << std::endl;
 		return -1;
 	}
 	else if (cmd.size() == 1)
-	{ //if there are no flags or file names
+	{	//if there are no flags or file names
 		flag = "-e";
 		file = cmd.at(0);
 	}
@@ -30,7 +30,7 @@ int Test::execute()
 		file = cmd.at(1);
 	}
 
-	//it got past the sorting. Now has the flag and file name separated
+	//sorting is complete, now has the flag and file name separated
 	const char *c = file.c_str();
 	struct stat buffer;
 	int statReturn = stat(c, &buffer); //if the file exists
@@ -40,11 +40,11 @@ int Test::execute()
 	}
 
 	if (flag == "-e")
-	{ //checks to see if the file exists
+	{	//checks to see if the file exists
 		return 0;
 	}
 	else if (flag == "-d")
-	{ //checks to see if the file is a directory
+	{	//checks to see if the file is a directory
 		if (S_ISDIR(buffer.st_mode) != 0)
 		{
 			return 0;
@@ -55,7 +55,7 @@ int Test::execute()
 		}
 	}
 	else if (flag == "-f")
-	{ //checks to see if the file is a regular file
+	{	//checks to see if the file is a regular file
 		if (S_ISREG(buffer.st_mode) != 0)
 		{
 			return 0;

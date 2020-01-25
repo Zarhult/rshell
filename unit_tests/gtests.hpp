@@ -16,7 +16,7 @@
 
 TEST(ExeTest, ExeFail)
 {
-    std::vector<std::string> cmd = {"meme"}; //nonexistent cmommand
+    std::vector<std::string> cmd = {"memememememememe"}; //nonexistent cmommand
     Base* exe = new Exe(cmd);
     EXPECT_EQ(exe->execute(), -1);
 }
