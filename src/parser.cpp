@@ -7,8 +7,8 @@
 #include "exe.hpp"
 
 std::vector<std::string> parse(std::string command) {
-	std::vector<std::string> inputs; // parse command into a vector of each command element (executables, connectors, quotes, parentheses, etc)
-        int startIndex; // beginning of a command element, starting with the very beginning of the input string
+	std::vector<std::string> inputs; //parse command into a vector of each command element (executables, connectors, quotes, parentheses, etc)
+        int startIndex; //beginning of a command element, starting with the very beginning of the input string
         for (int i = 0; static_cast<unsigned long>(i) < command.size(); ++i)
         {
             startIndex = i;

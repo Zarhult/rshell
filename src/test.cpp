@@ -65,6 +65,7 @@ int Test::execute()
 			return -1;
 		}
 	}
+
 	return -1; //should never reach this line, but return to prevent compiler warnings
 }
 

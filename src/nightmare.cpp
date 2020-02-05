@@ -7,30 +7,7 @@
 #include "connectorpipe.hpp"
 #include "exe.hpp"
 
-int findCloseParentheses(std::vector<std::string> &inputs, int start) 
-{
-    int ignore = 0;
-    for (int i = start + 1; static_cast<unsigned long>(i) < inputs.size(); ++i) 
-    {
-        if (inputs.at(i) == "(") 
-	{
-            ++ignore;
-        }
-        if (inputs.at(i) == ")") 
-	{
-            if (ignore == 0) 
-	    {
-                return i;
-            } 
-	    else 
-	    {
-                --ignore;
-            }
-        }
-    }
-
-    return -1; //prevent compiler warning
-}
+int findCloseParentheses(const std::vector<std::string> &inputs, int start);
 
 Base* nightmare(std::vector<std::string> &inputs) 
 {
@@ -261,3 +238,27 @@ Base* nightmare(std::vector<std::string> &inputs)
     }
 }
 
+int findCloseParentheses(const std::vector<std::string> &inputs, int start)
+{
+    int ignore = 0;
+    for (int i = start + 1; static_cast<unsigned long>(i) < inputs.size(); ++i) 
+    {
+        if (inputs.at(i) == "(") 
+	{
+            ++ignore;
+        }
+        if (inputs.at(i) == ")") 
+	{
+            if (ignore == 0) 
+	    {
+                return i;
+            } 
+	    else 
+	    {
+                --ignore;
+            }
+        }
+    }
+
+    return -1; //prevent compiler warning
+}

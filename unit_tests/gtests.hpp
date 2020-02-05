@@ -220,7 +220,7 @@ TEST(TestFlagF, RegularFile)
     EXPECT_EQ(test->execute(), 0);
 }
 
-TEST(TestFlagF, IsNotRegularFile) 
+TEST(TestFlagF, NotRegularFile) 
 {
     std::string input = "test -f src";
     std::vector<std::string> cmd = parse(input);
